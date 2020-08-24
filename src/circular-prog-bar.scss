@@ -1,0 +1,234 @@
+.circle.large {
+   width: 600px!important;
+   height: 600px!important;
+   transform: translate(-300px, -300px);
+   
+   .left-half-clipper {
+      width: 600px;
+      height: 600px;
+      clip: rect(0, 600px, 600px, 300px);
+      div {
+         width: 588px;
+         height: 588px;
+      }
+      .first50-bar { clip: rect(0, 600px, 600px, 300px); }
+      .value-bar {
+         clip: rect(0, 300px, 600px, 0);
+      }
+   }
+
+   mat-spinner {
+      width: 600px!important;
+      height: 600px!important;
+      svg {
+         width: 600px!important;
+         height: 600px!important;
+      }
+   }
+ }
+ .circle.medium {
+   width: 400px!important;
+   height: 400px!important;
+   transform: translate(-200px, -200px);
+   
+   .left-half-clipper {
+      width: 400px;
+      height: 400px;
+      clip: rect(0, 400px, 400px, 200px);
+      div {
+         width: 388px;
+         height: 388px;
+      }
+      .value-bar {
+         clip: rect(0, 200px, 400px, 0);
+      }
+   }
+
+   mat-spinner {
+      width: 400px!important;
+      height: 400px!important;
+      svg {
+         width: 400px!important;
+         height: 400px!important;
+      }
+   }
+ }
+ .circle.small {
+   width: 300px!important;
+   height: 300px!important;
+   transform: translate(-150px, -150px);
+   
+   .left-half-clipper { 
+      width: 300px;
+      height: 300px;
+      clip: rect(0, 300px, 300px, 150px);
+      div {
+         width: 138px;
+         height: 138px;
+      }
+      .value-bar {
+         clip: rect(0, 150px, 300px, 0);
+      }
+   }
+
+   mat-spinner {
+      width: 300px!important;
+      height: 300px!important;
+      svg {
+         width: 300px!important;
+         height: 300px!important;
+      }
+   }
+ } 
+
+.circle {
+   margin: 0;
+   padding: 0;
+   border-radius: 50%;
+   display:inline-block;
+   pointer-events:none;
+   background: rgba(125, 194, 65, 0.22);
+   position: absolute;
+   top: 50%;
+   left: 50%;
+
+   div {
+     pointer-events:none;
+     border-radius: 50%;
+     padding: 0;
+     margin: 0;
+     position: absolute;
+   //   box-shadow: inset 0 0 10px 12px rgba(138, 200, 84, 0.22);
+   } 
+
+   > div > div {
+     border: 6px solid rgba(125, 194, 65, 0.9);
+   }
+   
+   svg {
+      circle {
+         stroke-width: 1px!important;
+         stroke: #7dc241!important;
+      }
+   }
+}
+
+
+.rotate {
+   -webkit-animation: mat-progress-spinner-linear-rotate 1s linear infinite !important;
+   animation: mat-progress-spinner-linear-rotate 1s linear infinite !important;
+   > * {    
+      display: block!important;
+   }
+}
+
+
+
+
+.circle .first50-bar { display: none; }
+.circle.over50 .first50-bar { display: block; }
+.circle.over50 .left-half-clipper { clip: rect(auto,auto,auto,auto); }
+
+
+/* Progress bar rotation position */
+.circle.p0 .value-bar { display: none; }
+.circle.p1 .value-bar { transform: rotate(4deg); }
+.circle.p2 .value-bar { transform: rotate(7deg); }
+.circle.p3 .value-bar { transform: rotate(11deg); }
+.circle.p4 .value-bar { transform: rotate(14deg); }
+.circle.p5 .value-bar { transform: rotate(18deg); }
+.circle.p6 .value-bar { transform: rotate(22deg); }
+.circle.p7 .value-bar { transform: rotate(25deg); }
+.circle.p8 .value-bar { transform: rotate(29deg); }
+.circle.p9 .value-bar { transform: rotate(32deg); }
+.circle.p10 .value-bar { transform: rotate(36deg); }
+.circle.p11 .value-bar { transform: rotate(40deg); }
+.circle.p12 .value-bar { transform: rotate(43deg); }
+.circle.p13 .value-bar { transform: rotate(47deg); }
+.circle.p14 .value-bar { transform: rotate(50deg); }
+.circle.p15 .value-bar { transform: rotate(54deg); }
+.circle.p16 .value-bar { transform: rotate(58deg); }
+.circle.p17 .value-bar { transform: rotate(61deg); }
+.circle.p18 .value-bar { transform: rotate(65deg); }
+.circle.p19 .value-bar { transform: rotate(68deg); }
+.circle.p20 .value-bar { transform: rotate(72deg); }
+.circle.p21 .value-bar { transform: rotate(76deg); }
+.circle.p22 .value-bar { transform: rotate(79deg); }
+.circle.p23 .value-bar { transform: rotate(83deg); }
+.circle.p24 .value-bar { transform: rotate(86deg); }
+.circle.p25 .value-bar { transform: rotate(90deg); }
+.circle.p26 .value-bar { transform: rotate(94deg); }
+.circle.p27 .value-bar { transform: rotate(97deg); }
+.circle.p28 .value-bar { transform: rotate(101deg); }
+.circle.p29 .value-bar { transform: rotate(104deg); }
+.circle.p30 .value-bar { transform: rotate(108deg); }
+.circle.p31 .value-bar { transform: rotate(112deg); }
+.circle.p32 .value-bar { transform: rotate(115deg); }
+.circle.p33 .value-bar { transform: rotate(119deg); }
+.circle.p34 .value-bar { transform: rotate(122deg); }
+.circle.p35 .value-bar { transform: rotate(126deg); }
+.circle.p36 .value-bar { transform: rotate(130deg); }
+.circle.p37 .value-bar { transform: rotate(133deg); }
+.circle.p38 .value-bar { transform: rotate(137deg); }
+.circle.p39 .value-bar { transform: rotate(140deg); }
+.circle.p40 .value-bar { transform: rotate(144deg); }
+.circle.p41 .value-bar { transform: rotate(148deg); }
+.circle.p42 .value-bar { transform: rotate(151deg); }
+.circle.p43 .value-bar { transform: rotate(155deg); }
+.circle.p44 .value-bar { transform: rotate(158deg); }
+.circle.p45 .value-bar { transform: rotate(162deg); }
+.circle.p46 .value-bar { transform: rotate(166deg); }
+.circle.p47 .value-bar { transform: rotate(169deg); }
+.circle.p48 .value-bar { transform: rotate(173deg); }
+.circle.p49 .value-bar { transform: rotate(176deg); }
+.circle.p50 .value-bar { transform: rotate(180deg); }
+.circle.p51 .value-bar { transform: rotate(184deg); }
+.circle.p52 .value-bar { transform: rotate(187deg); }
+.circle.p53 .value-bar { transform: rotate(191deg); }
+.circle.p54 .value-bar { transform: rotate(194deg); }
+.circle.p55 .value-bar { transform: rotate(198deg); }
+.circle.p56 .value-bar { transform: rotate(202deg); }
+.circle.p57 .value-bar { transform: rotate(205deg); }
+.circle.p58 .value-bar { transform: rotate(209deg); }
+.circle.p59 .value-bar { transform: rotate(212deg); }
+.circle.p60 .value-bar { transform: rotate(216deg); }
+.circle.p61 .value-bar { transform: rotate(220deg); }
+.circle.p62 .value-bar { transform: rotate(223deg); }
+.circle.p63 .value-bar { transform: rotate(227deg); }
+.circle.p64 .value-bar { transform: rotate(230deg); }
+.circle.p65 .value-bar { transform: rotate(234deg); }
+.circle.p66 .value-bar { transform: rotate(238deg); }
+.circle.p67 .value-bar { transform: rotate(241deg); }
+.circle.p68 .value-bar { transform: rotate(245deg); }
+.circle.p69 .value-bar { transform: rotate(248deg); }
+.circle.p70 .value-bar { transform: rotate(252deg); }
+.circle.p71 .value-bar { transform: rotate(256deg); }
+.circle.p72 .value-bar { transform: rotate(259deg); }
+.circle.p73 .value-bar { transform: rotate(263deg); }
+.circle.p74 .value-bar { transform: rotate(266deg); }
+.circle.p75 .value-bar { transform: rotate(270deg); }
+.circle.p76 .value-bar { transform: rotate(274deg); }
+.circle.p77 .value-bar { transform: rotate(277deg); }
+.circle.p78 .value-bar { transform: rotate(281deg); }
+.circle.p79 .value-bar { transform: rotate(284deg); }
+.circle.p80 .value-bar { transform: rotate(288deg); }
+.circle.p81 .value-bar { transform: rotate(292deg); }
+.circle.p82 .value-bar { transform: rotate(295deg); }
+.circle.p83 .value-bar { transform: rotate(299deg); }
+.circle.p84 .value-bar { transform: rotate(302deg); }
+.circle.p85 .value-bar { transform: rotate(306deg); }
+.circle.p86 .value-bar { transform: rotate(310deg); }
+.circle.p87 .value-bar { transform: rotate(313deg); }
+.circle.p88 .value-bar { transform: rotate(317deg); }
+.circle.p89 .value-bar { transform: rotate(320deg); }
+.circle.p90 .value-bar { transform: rotate(324deg); }
+.circle.p91 .value-bar { transform: rotate(328deg); }
+.circle.p92 .value-bar { transform: rotate(331deg); }
+.circle.p93 .value-bar { transform: rotate(335deg); }
+.circle.p94 .value-bar { transform: rotate(338deg); }
+.circle.p95 .value-bar { transform: rotate(342deg); }
+.circle.p96 .value-bar { transform: rotate(346deg); }
+.circle.p97 .value-bar { transform: rotate(349deg); }
+.circle.p98 .value-bar { transform: rotate(353deg); }
+.circle.p99 .value-bar { transform: rotate(356deg); }
+.circle.p100 .value-bar { transform: rotate(360deg); }

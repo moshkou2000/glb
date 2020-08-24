@@ -1,0 +1,7 @@
+<app-header *ngIf="isFullscreen ? false : show.header" [showSidebar]="show.sidebar" [isTablet]="isTablet" [isMobile]="isMobile"></app-header>
+
+<app-alert *ngIf="show.alert" fxLayout="column"></app-alert>
+
+<router-outlet></router-outlet>
+
+<app-footer *ngIf="isFullscreen ? false : show.footer" fxLayout="column"></app-footer>

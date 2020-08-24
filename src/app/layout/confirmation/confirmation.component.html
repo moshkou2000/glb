@@ -1,0 +1,10 @@
+<div *ngIf="confirmation != null" class="mat-dialog-container">
+  <h6 mat-dialog-title class="mat-dialog-title">{{confirmation.title}}</h6>
+  <div mat-dialog-content class="mat-dialog-content">
+    <p>{{confirmation.message}}</p>
+  </div>
+  <div mat-dialog-actions class="mat-dialog-actions">
+    <button mat-button *ngIf="confirmation.button1 != null" (click)="confirmation.button1.click()" (click)="onDismiss()">{{confirmation.button1.title}}</button>
+    <button mat-button *ngIf="confirmation.button2 != null" (click)="confirmation.button2.click()" (click)="onConfirm()">{{confirmation.button2.title}}</button>
+  </div>
+</div>
