@@ -5,10 +5,6 @@ import { RouterModule } from '@angular/router';
 import { MatTooltipModule, MatToolbarModule, MatDividerModule, MatMenuModule, 
   MatButtonModule, MatIconModule, MatBadgeModule, MatListModule } from '@angular/material';
 
-import { AlertComponent } from './alert/alert.component';
-import { FooterComponent } from './footer/footer.component';
-import { HeaderComponent } from './header/header.component';
-
 @NgModule({
   imports: [
     CommonModule,
@@ -23,15 +19,7 @@ import { HeaderComponent } from './header/header.component';
     MatListModule,
     MatTooltipModule
   ],
-  exports: [
-    AlertComponent,
-    FooterComponent,
-    HeaderComponent
-  ],
-  declarations: [
-    AlertComponent,
-    FooterComponent,
-    HeaderComponent
-  ]
+  exports: [],
+  declarations: []
 })
 export class LayoutModule { }

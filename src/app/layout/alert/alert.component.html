@@ -1,5 +1,0 @@
-<div *ngIf="alert != null" class={{alert.getType()}}>{{alert.message}}
-    <div>
-        <button *ngFor="let option of alert.options" mat-button flex="15" color="primary" (click)="alertService.setButtonClick(alert._id, option)">{{option.text}}</button>
-    </div>
-</div>

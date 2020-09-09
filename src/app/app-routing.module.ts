@@ -4,18 +4,13 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
     {
         path: '',
-        redirectTo: '/home',
+        redirectTo: '',
         pathMatch: 'full'
     },
     {
         path: 'error',
         loadChildren: () => import('./error/error.module').then(m => m.ErrorModule),
         data: { showAlert: false, showHeader: false, showFooter: false, showSidebar: false }
-    },
-    {
-        path: 'home',
-        loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
-        data: { showAlert: true, showHeader: true, showFooter: true, showSidebar: true }
     },
     {
         path: '**',
