@@ -16,7 +16,6 @@ import { ConfirmationComponent } from './layout/confirmation/confirmation.compon
 import { SnackbarComponent } from './layout/snackbar/snackbar.component';
 
 import { GeneralService } from './services/general/general.service';
-//25
 
 
 @NgModule({

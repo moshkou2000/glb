@@ -1,0 +1,252 @@
+header,
+footer,
+main {
+    position: fixed;
+    z-index: 999;
+}
+
+header {
+    top: 0;
+}
+
+footer {
+    bottom: 0;
+}
+
+main {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: auto;
+    z-index: 998;
+}
+
+
+/*
+    highlight dot
+*/
+.highlight {
+    position: absolute;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.highlight.top {
+    left: 15%;
+    top: 15%;
+}
+
+.highlight.bottom {
+    right: 15%;
+    bottom: 25%;
+}
+
+@media (max-width:1140px) {
+    .highlight.top {
+        left: 30%;
+    }
+    .highlight.bottom {
+        right: 30%;
+    }
+}
+
+@media (max-width:768px) {
+    .highlight.top {
+        left: 50%;
+        top: 45%;
+    }
+    .highlight.bottom {
+        right: 50%;
+    }
+}
+
+.highlight:hover .dot {
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+    background-color: #f4f2f2;
+    -webkit-box-shadow: inset 0px 2px 6px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: inset 0px 2px 6px 0px rgba(0, 0, 0, 0.15);
+}
+
+.highlight .dot {
+    background-image: url(../img/highlight.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    display: block;
+    min-width: 16px;
+    margin: 0 10px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    padding: 3px;
+    -webkit-transition: all 0.1s;
+    -o-transition: all 0.1s;
+    transition: all 0.1s;
+}
+
+.highlight:hover .highlight-hover {
+    opacity: 1;
+    display: block;
+}
+
+.highlight .highlight-dot {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    color: #9c9c99;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    z-index: 2;
+    position: relative;
+    pointer-events: all;
+}
+
+.highlight .highlight-hover {
+    position: absolute;
+    display: none;
+    top: -20px;
+    right: -10px;
+    text-align: right;
+    padding: 55px 45px 35px 20px;
+    width: 300px;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+    border-radius: 7px;
+    opacity: 0;
+    background-color: #fff;
+    -webkit-box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.15);
+}
+
+.highlight.bottom .highlight-hover {
+    text-align: left;
+    right: auto;
+    left: -10px;
+    padding: 55px 20px 35px 45px;
+}
+
+/*
+    discover more
+*/
+.discover-more {
+    max-width: 280px;
+    display: block;
+    border-left: solid 1px;
+    padding-left: 16px;
+    position: absolute;
+    right: 10%;
+    top: 15%;
+    margin: 0;
+    z-index: 3;
+}
+
+@media (max-width:768px) {
+    .discover-more {
+        left: 10%;
+    }
+}
+
+.discover-more>p {
+    margin-bottom: 0;
+    line-height: 21px;
+    color: #9c9c99;
+}
+
+.discover-more>a {
+    margin-top: 20px;
+    border-bottom: none;
+    display: inline-block;
+    text-decoration: none;
+    color: #ababab;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.discover-more>a>.more {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid;
+    position: relative;
+    top: 4px;
+    margin-left: 5px;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.discover-more>a:hover .more {
+    color: #f4f2f2;
+    border-color: #ababab;
+    background-color: #ababab;
+}
+
+.discover-more>a>.more:after {
+    content: "";
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-top: 1px solid;
+    border-right: 1px solid;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%) rotate(45deg);
+    -ms-transform: translate(-50%, -50%) rotate(45deg);
+    transform: translate(-50%, -50%) rotate(45deg);
+    margin-left: -1px;
+}
+
+.discover-more.social > a:hover svg path {
+    fill: #C81010;
+}
+
+
+/*
+    index.html
+    owl carousel
+*/
+.index {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+}
+
+.owl-carousel,
+.owl-stage-outer,
+.owl-stage,
+.owl-item,
+.owl-item>.item {
+    height: 100%;
+}
+.owl-item>.item {
+    background-size: auto;
+    background-position: center;
+}
+
+
+/*
+    animation
+    blinking
+*/
+.blinking-dot {
+	animation: blinkingDot 2s infinite;
+}
+@keyframes blinkingDot{
+	0%{		color: #000;	}
+	49%{	color: transparent;	}
+	50%{	color: transparent;	}
+	99%{	color: transparent;	}
+	100%{	color: #000;	}
+}

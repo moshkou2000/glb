@@ -8,6 +8,16 @@ const routes: Routes = [
         pathMatch: 'full'
     },
     {
+        path: 'about',
+        loadChildren: () => import('./about/about.module').then(m => m.AboutModule),
+        data: { showAlert: false, showHeader: false, showFooter: false, showSidebar: false }
+    },
+    {
+        path: 'contact',
+        loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule),
+        data: { showAlert: false, showHeader: false, showFooter: false, showSidebar: false }
+    },
+    {
         path: 'error',
         loadChildren: () => import('./error/error.module').then(m => m.ErrorModule),
         data: { showAlert: false, showHeader: false, showFooter: false, showSidebar: false }

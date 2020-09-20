@@ -98,7 +98,7 @@ export class GeneralService {
                 d.click();
             }
         } else {
-            !environment.production && console.log('::toggleLeftSidenav is null');
+            // !environment.production && console.log('::toggleLeftSidenav is null');
         }
     }
 
@@ -107,7 +107,7 @@ export class GeneralService {
         if (d != null) {
             d.click();
         } else {
-            !environment.production && console.log('::toggleRightSidenav is null');
+            // !environment.production && console.log('::toggleRightSidenav is null');
         }
     }
 

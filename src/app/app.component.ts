@@ -16,8 +16,9 @@ import { Vector } from 'three';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { GLBModel, AnimationModel } from './models/GLB.model';
 
-const mixers = [];
-const clock = new THREE.Clock();
+const MIXERS = [];
+const CLOCK = new THREE.Clock();
+const TIME_OPTIONS: any = { hour: "2-digit", minute: "2-digit", second: "2-digit", milisecond: "2-digit", hour12: false };
 
 
 @Component({
@@ -34,6 +35,7 @@ export class AppComponent implements OnInit, OnDestroy {
   scene: any;
   models: GLBModel[] = [];
   selectedModel: GLBModel = new GLBModel();
+  rendererCounter: number = 0;
   // duration: number = 5000; // ms
   // currentTime: any = Date.now();
 
@@ -175,7 +177,6 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
 
-
   createCamera = (): void => {
     this.camera = new THREE.PerspectiveCamera(100, this.container.clientWidth / this.container.clientHeight, 1, 1000);
     this.camera.position.set( -1.5, 1.5, 6.5 );
@@ -210,6 +211,8 @@ export class AppComponent implements OnInit, OnDestroy {
     // A reusable to set up the models. We're passing in a position parameter
     // so that they can be individually placed around the scene
     const onLoad = (gltf: any, position: Vector) => {
+      console.log("%c::LOADING " + new Date().toLocaleTimeString("en-us", TIME_OPTIONS), 'color: #00aaff;');
+
       const model = gltf.scene;
       model.position.copy(position);
 
@@ -217,7 +220,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
       if (gltf.animations.length > 0) {
         const mixer: any = new THREE.AnimationMixer(model);
-        mixers.push(mixer);
+        MIXERS.push(mixer);
 
         gltf.animations.forEach((animation: any) => {
           if (animation != null) {
@@ -233,29 +236,34 @@ export class AppComponent implements OnInit, OnDestroy {
       this.scene.add(model);
       this.models.push(aModel);
 
-      console.log(this.models);
+      console.info("::MODELS", new Date().toLocaleTimeString("en-us", TIME_OPTIONS), " ", this.models);
     };
 
-
     // the loader will report the loading progress to this function
-    const onProgress = () => { };
+    const onProgress = (progress: any) => {
+      console.log("%c::PROGRESS " + Math.floor((progress.loaded / progress.total) * 100) + '%', 'color: #4cb50e;');
+     };
 
     // the loader will send any error messages to this function, and we'll log
     // them to to console
     const onError = (errorMessage: any) => {
-      console.log("::ERROR", errorMessage);
+      console.error("%c::ERROR", 'color: #c90404;', errorMessage);
     };
 
     // load the first model. Each model is loaded asynchronously,
     // so don't make any assumption about which one will finish loading first
+
     const parrotPosition = new THREE.Vector3(10, 110, 110);
-    loader.load('/assets/files/Parrot.glb', gltf => onLoad(gltf, parrotPosition), onProgress, onError);
+    loader.load('/assets/files/power_turbine.glb', gltf => onLoad(gltf, parrotPosition), onProgress, onError);
+    
+    const parrotMultiplePosition = new THREE.Vector3(90, -90, 0);
+    loader.load('/assets/files/turbine_mid_frame.glb', gltf => onLoad(gltf, parrotMultiplePosition), onProgress, onError);
 
     const flamingoPosition = new THREE.Vector3( 0, 0, 0 );
-    loader.load( '/assets/files/Flamingo.glb', gltf => onLoad( gltf, flamingoPosition ), onProgress, onError );
+    loader.load( '/assets/files/compressor_rear_frame.glb', gltf => onLoad( gltf, flamingoPosition ), onProgress, onError );
 
-    const storkPosition = new THREE.Vector3( -110, -110, -10 );
-    loader.load( '/assets/files/Stork.glb', gltf => onLoad( gltf, storkPosition ), onProgress, onError );
+    const enginePosition = new THREE.Vector3( -110, -110, -10 );
+    loader.load( '/assets/files/inlet_duct.glb', gltf => onLoad( gltf, enginePosition ), onProgress, onError );
   }
 
   createRenderer = (): void => {
@@ -266,36 +274,28 @@ export class AppComponent implements OnInit, OnDestroy {
     this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.gammaFactor = 2.2;
-    // this.renderer.gammaOutput = true;
+    this.renderer.gammaOutput = true;
     this.renderer.outputEncoding = true;
     this.renderer.physicallyCorrectLights = true;
 
     this.container.appendChild(this.renderer.domElement);
   }
 
-  // infinitRotation = (model: GLBModel): void => {
-  //   const m: GLBModel = model;
-  //   if (m.hasRotation) {
-  //     var now = Date.now();
-  //     var deltat = now - this.currentTime;
-  //     this.currentTime = now;
-  //     var fract = deltat / this.duration;
-  //     var angle = Math.PI * 2 * fract;
-  
-  //     m.model.rotation.y += angle;
-  //     // model.model.rotation.x = Math.PI * -.5;
-  //   }
-  // }
-
   update = (): void => {
-    const delta = clock.getDelta();
-    for (const mixer of mixers) {
+    const delta = CLOCK.getDelta();
+    for (const mixer of MIXERS) {
       mixer.update(delta);
     }
   }
 
   render = (): void => {
     this.renderer.render(this.scene, this.camera);
+
+    if (this.models.length === 0 || this.rendererCounter < 3) {
+      if (this.models.length > 0)
+        this.rendererCounter++;
+      console.log("%c::RENDERER " + new Date().toLocaleTimeString("en-us", TIME_OPTIONS), 'color: #ecc804;');
+    }
   }
 
   onWindowResize = (): void => {

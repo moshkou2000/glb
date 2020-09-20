@@ -1,0 +1,46 @@
+svg g[data-hasqtip] {
+    cursor: pointer;
+}
+:not(svg) {
+    transform-origin: 0px 0px;
+}
+path {
+    fill: #f88;
+    stroke: #fff;
+}
+svg g * {
+    fill: #3e4543;
+    transition: fill .25s ease-out;
+}
+
+svg g *:hover {
+    fill: #f76c4d;
+    transition: fill .25s ease-out;
+}
+
+svg.enabled {
+    opacity: 1;
+}
+svg {
+    position: absolute;
+    top: -50%;
+    left: 0;
+    opacity: 0;
+    transition: all .25s ease-out;
+}
+svg:not(:root) {
+    overflow: hidden;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
+    html {
+      transform: rotate(-90deg);
+      transform-origin: left top;
+      width: 100vh;
+      height: 100vw;
+      overflow-x: hidden;
+      position: absolute;
+      top: 100%;
+      left: 0;
+    }
+  }
