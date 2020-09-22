@@ -16,6 +16,10 @@ import { ConfirmationComponent } from './layout/confirmation/confirmation.compon
 import { SnackbarComponent } from './layout/snackbar/snackbar.component';
 
 import { GeneralService } from './services/general/general.service';
+import { ProductsModule } from './products/products.module';
+import { AboutModule } from './about/about.module';
+import { GalleryModule } from './gallery/gallery.module';
+import { HomeModule } from './home/home.module';
 
 
 @NgModule({
@@ -49,7 +53,11 @@ import { GeneralService } from './services/general/general.service';
         MatSelectModule,
         MatToolbarModule,
         MatIconModule,
-        MatTooltipModule
+        MatTooltipModule,
+        ProductsModule,
+        AboutModule,
+        GalleryModule,
+        HomeModule
     ],
     providers: [
         GeneralService

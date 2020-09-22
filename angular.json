@@ -28,10 +28,20 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/assets/css/components.css",
+              "src/assets/css/icons.css",
+              "src/assets/css/responsee.css",
+              "src/assets/css/template-style.css",
+              "src/assets/css/contact.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/owl.carousel.js",
+              "src/assets/js/jquery-1.8.3.min.js",
+              "src/assets/js/jquery-ui.min.js",
+              "src/assets/js/responsee.js",
+              "src/assets/js/template-scripts.js",
+              "src/assets/js/scripts.js"]
           },
           "configurations": {
             "production": {
@@ -93,10 +103,20 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/assets/css/components.css",
+              "src/assets/css/icons.css",
+              "src/assets/css/responsee.css",
+              "src/assets/css/template-style.css",
+              "src/assets/css/contact.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/owl-carousel/owl.carousel.js",
+              "src/assets/js/jquery-1.8.3.min.js",
+              "src/assets/js/jquery-ui.min.js",
+              "src/assets/js/responsee.js",
+              "src/assets/js/template-scripts.js",
+              "src/assets/js/scripts.js"]
           }
         },
         "lint": {

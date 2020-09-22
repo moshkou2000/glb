@@ -24,6 +24,7 @@ import { AboutComponent } from './about.component';
     MatDividerModule,
     MatSelectModule
   ],
+  exports: [AboutComponent],
   declarations: [AboutComponent]
 })
 export class AboutModule { }

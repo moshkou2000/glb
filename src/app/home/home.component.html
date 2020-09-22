@@ -1,0 +1,72 @@
+<section class="maximize">
+  <div id="scene-container" class="maximize"></div>
+</section>
+
+<!-- highlight dot top -->
+<div class="highlight top">
+    <div class="highlight-dot">
+        <span>Did you know?</span>
+        <span class="dot"></span>
+    </div>
+    <div class="highlight-hover">
+        <p>My Project shreds materials like wood, plastic, paper, metal, and waste into a homogenous size.</p>
+    </div>
+</div>
+
+<!-- highlight dot bottom -->
+<div class="highlight bottom">
+    <div class="highlight-dot">
+        <span class="dot"></span>
+        <span>Valuable scrap</span>
+    </div>
+    <div class="highlight-hover">
+        <p>Shredded scrap is used for the production of new raw materials.</p>
+    </div>
+</div>
+
+<!-- discover-more -->
+<div class="discover-more">
+    <h3>Shredding</h3>
+    <p>For over 40 years, we have produced shredding technology for large industry and small craftsman shops alike.</p>
+    <a href="about-us.html">Discover more<span class="more"></span></a>
+</div>
+
+
+
+<!-- <div id="scene-container"></div> -->
+<!-- <mat-toolbar>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <div class="animate" style="flex: 1 1 auto;">
+      <span>G</span><span>L</span><span>B</span>
+    </div>
+  
+    <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Models" aria-label="Example icon-button with a menu">
+      <mat-icon>filter_vintage</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button *ngFor="let model of models; index as index;" (click)="onclickModel(model)" mat-menu-item>
+        <span>{{index + 1}}</span>
+      </button>
+    </mat-menu>
+  
+    <button mat-icon-button [matMenuTriggerFor]="menu2" matTooltip="Animations" aria-label="Example icon-button with a menu">
+      <mat-icon>apps</mat-icon>
+    </button>
+    <mat-menu #menu2="matMenu">
+      <button *ngFor="let animation of selectedModel.animations; index as index;" (click)="onclickAnimation(animation)" mat-menu-item>
+        <span>{{index + 1}}</span>
+      </button>
+    </mat-menu>
+  
+    <button *ngIf="selectedModel.animation != null" (click)="onclickAction()" [matTooltip]="selectedModel.animation.isPaused ? 'Play Animation' : 'Stop Animation'" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+      <mat-icon *ngIf="selectedModel.animation.isPaused">3d_rotation</mat-icon>
+      <mat-icon *ngIf="!selectedModel.animation.isPaused">pause_circle_outline</mat-icon>
+    </button>
+  
+    <button (click)="onclickRotation()" [matTooltip]="selectedModel.hasRotation ? 'Play Rotation' : 'Stop Rotation'" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+      <mat-icon *ngIf="selectedModel.hasRotation">3d_rotation</mat-icon>
+      <mat-icon *ngIf="!selectedModel.hasRotation">pause_circle_outline</mat-icon>
+    </button>
+  </mat-toolbar> -->

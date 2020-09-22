@@ -1,46 +1,47 @@
-svg g[data-hasqtip] {
+svg.globalreach g[data-hasqtip] {
     cursor: pointer;
 }
-:not(svg) {
+:not(svg.globalreach) {
     transform-origin: 0px 0px;
 }
-path {
-    fill: #f88;
-    stroke: #fff;
+svg.globalreach path {
+    fill: #a70c0c;
+    stroke: #002633;
 }
-svg g * {
+svg.globalreach g * {
     fill: #3e4543;
     transition: fill .25s ease-out;
 }
 
-svg g *:hover {
-    fill: #f76c4d;
+svg.globalreach g *:hover {
+    fill: #a70c0c;
     transition: fill .25s ease-out;
 }
 
-svg.enabled {
+svg.globalreach.enabled {
     opacity: 1;
 }
-svg {
-    position: absolute;
-    top: -50%;
-    left: 0;
+svg.globalreach {
     opacity: 0;
+    margin-top: -30%;
+    margin-bottom: -30%;
     transition: all .25s ease-out;
 }
-svg:not(:root) {
-    overflow: hidden;
+
+@media (max-width: 1140px) {
+    svg.globalreach {
+        margin-top: -25%;
+        margin-bottom: -30%;
+    }
 }
 
-@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
-    html {
-      transform: rotate(-90deg);
-      transform-origin: left top;
-      width: 100vh;
-      height: 100vw;
-      overflow-x: hidden;
-      position: absolute;
-      top: 100%;
-      left: 0;
+/* @media (max-width:768px) {
+    svg.globalreach {
+        margin-top: -30%;
+        margin-bottom: -30%;
     }
-  }
+} */
+
+svg.globalreach:not(:root) {
+    overflow: hidden;
+}

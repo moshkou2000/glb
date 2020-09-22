@@ -138,19 +138,6 @@ export class GeneralService {
 
 
     /*
-      app layout
-    */
-    setAppLayout(show: ShowModel): void {
-        this.subjectLayout.next(show);
-    }
-
-    getAppLayout(): Observable<ShowModel> {
-        return this.subjectLayout.asObservable();
-    }
-
-
-
-    /*
       back button
     */
     setBackButton(): void {

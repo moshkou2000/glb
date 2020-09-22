@@ -1,115 +1,115 @@
 
-@import '~@angular/material/theming';
-@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
-@import "~angular-tree-component/dist/angular-tree-component.css";
-@import "~nouislider/distribute/nouislider.css";
+// @import '~@angular/material/theming';
+// @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+// @import "~angular-tree-component/dist/angular-tree-component.css";
+// @import "~nouislider/distribute/nouislider.css";
 
-// https://material-ui.com/customization/color/
-// http://mcg.mbitson.com/#!?mcgpalette0=%237dc241
-$mat-myapp-primary: (
-    50 : #ececec,
-    100 : #d0d0d0,
-    200 : #b0b0b0,
-    300 : #909090,
-    400 : #797979,
-    500 : #616161,
-    600 : #595959,
-    700 : #4f4f4f,
-    800 : #454545,
-    900 : #333333,
-    A100 : #f39595,
-    A200 : #ee6868,
-    A400 : #ff2424,
-    A700 : #ff0a0a,
-    contrast: (
-        50 : #000000,
-        100 : #000000,
-        200 : #000000,
-        300 : #000000,
-        400 : #ffffff,
-        500 : #ffffff,
-        600 : #ffffff,
-        700 : #ffffff,
-        800 : #ffffff,
-        900 : #ffffff,
-        A100 : #000000,
-        A200 : #000000,
-        A400 : #ffffff,
-        A700 : #ffffff,
-    )
-);
+// // https://material-ui.com/customization/color/
+// // http://mcg.mbitson.com/#!?mcgpalette0=%237dc241
+// $mat-myapp-primary: (
+//     50 : #ececec,
+//     100 : #d0d0d0,
+//     200 : #b0b0b0,
+//     300 : #909090,
+//     400 : #797979,
+//     500 : #616161,
+//     600 : #595959,
+//     700 : #4f4f4f,
+//     800 : #454545,
+//     900 : #333333,
+//     A100 : #f39595,
+//     A200 : #ee6868,
+//     A400 : #ff2424,
+//     A700 : #ff0a0a,
+//     contrast: (
+//         50 : #000000,
+//         100 : #000000,
+//         200 : #000000,
+//         300 : #000000,
+//         400 : #ffffff,
+//         500 : #ffffff,
+//         600 : #ffffff,
+//         700 : #ffffff,
+//         800 : #ffffff,
+//         900 : #ffffff,
+//         A100 : #000000,
+//         A200 : #000000,
+//         A400 : #ffffff,
+//         A700 : #ffffff,
+//     )
+// );
 
-$mat-myapp-accent: (
-    50 : #eff8e8,
-    100 : #d8edc6,
-    200 : #bee1a0,
-    300 : #a4d47a,
-    400 : #91cb5e,
-    500 : #7dc241,
-    600 : #75bc3b,
-    700 : #6ab432,
-    800 : #60ac2a,
-    900 : #4d9f1c,
-    A100 : #e5ffd7,
-    A200 : #c3ffa4,
-    A400 : #a2ff71,
-    A700 : #91ff58,
-    contrast: (
-        50 : #000000,
-        100 : #000000,
-        200 : #000000,
-        300 : #000000,
-        400 : #000000,
-        500 : #000000,
-        600 : #000000,
-        700 : #000000,
-        800 : #000000,
-        900 : #ffffff,
-        A100 : #000000,
-        A200 : #000000,
-        A400 : #000000,
-        A700 : #000000,
-    )
-);
+// $mat-myapp-accent: (
+//     50 : #eff8e8,
+//     100 : #d8edc6,
+//     200 : #bee1a0,
+//     300 : #a4d47a,
+//     400 : #91cb5e,
+//     500 : #7dc241,
+//     600 : #75bc3b,
+//     700 : #6ab432,
+//     800 : #60ac2a,
+//     900 : #4d9f1c,
+//     A100 : #e5ffd7,
+//     A200 : #c3ffa4,
+//     A400 : #a2ff71,
+//     A700 : #91ff58,
+//     contrast: (
+//         50 : #000000,
+//         100 : #000000,
+//         200 : #000000,
+//         300 : #000000,
+//         400 : #000000,
+//         500 : #000000,
+//         600 : #000000,
+//         700 : #000000,
+//         800 : #000000,
+//         900 : #ffffff,
+//         A100 : #000000,
+//         A200 : #000000,
+//         A400 : #000000,
+//         A700 : #000000,
+//     )
+// );
 
-$mat-myapp-warn: (
-    50 : #e3effa,
-    100 : #bad6f2,
-    200 : #8cbbe9,
-    300 : #5e9fe0,
-    400 : #3c8bd9,
-    500 : #1976d2,
-    600 : #166ecd,
-    700 : #1263c7,
-    800 : #0e59c1,
-    900 : #0846b6,
-    A100 : #e0eaff,
-    A200 : #adc6ff,
-    A400 : #7aa3ff,
-    A700 : #6191ff,
-    contrast: (
-        50 : #000000,
-        100 : #000000,
-        200 : #000000,
-        300 : #000000,
-        400 : #ffffff,
-        500 : #ffffff,
-        600 : #ffffff,
-        700 : #ffffff,
-        800 : #ffffff,
-        900 : #ffffff,
-        A100 : #000000,
-        A200 : #000000,
-        A400 : #000000,
-        A700 : #000000,
-    )
-);
+// $mat-myapp-warn: (
+//     50 : #e3effa,
+//     100 : #bad6f2,
+//     200 : #8cbbe9,
+//     300 : #5e9fe0,
+//     400 : #3c8bd9,
+//     500 : #1976d2,
+//     600 : #166ecd,
+//     700 : #1263c7,
+//     800 : #0e59c1,
+//     900 : #0846b6,
+//     A100 : #e0eaff,
+//     A200 : #adc6ff,
+//     A400 : #7aa3ff,
+//     A700 : #6191ff,
+//     contrast: (
+//         50 : #000000,
+//         100 : #000000,
+//         200 : #000000,
+//         300 : #000000,
+//         400 : #ffffff,
+//         500 : #ffffff,
+//         600 : #ffffff,
+//         700 : #ffffff,
+//         800 : #ffffff,
+//         900 : #ffffff,
+//         A100 : #000000,
+//         A200 : #000000,
+//         A400 : #000000,
+//         A700 : #000000,
+//     )
+// );
 
-$primary: mat-palette($mat-myapp-primary);
-$accent: mat-palette($mat-myapp-accent);
-$warn: mat-palette($mat-myapp-warn);
-$theme: mat-light-theme($primary, $accent, $warn);
-@include angular-material-theme($theme);
+// $primary: mat-palette($mat-myapp-primary);
+// $accent: mat-palette($mat-myapp-accent);
+// $warn: mat-palette($mat-myapp-warn);
+// $theme: mat-light-theme($primary, $accent, $warn);
+// @include angular-material-theme($theme);
 
 
 $button-normal: 140;

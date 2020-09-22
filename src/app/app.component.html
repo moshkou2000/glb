@@ -1,38 +1,26 @@
-<div id="scene-container"></div>
-<router-outlet></router-outlet>
-<mat-toolbar>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <div class="animate" style="flex: 1 1 auto;">
-    <span>G</span><span>L</span><span>B</span>
-  </div>
+<!-- HEADER -->
+<header class="grid">
+    <nav class="s-12 grid background-none background-primary-hightlight">
+        <a href="index.html" class="m-12 l-3 padding-2x logo">
+            <img src="assets/images/logo.svg">
+        </a>
+        <div class="top-nav s-12 l-9">
+            <ul class="top-ul right chevron">
+                <li [ngClass]="{'active-item': page == pages.home}"><a href="#home" (click)="page = pages.home">Home</a></li>
+                <li [ngClass]="{'active-item': page == pages.about}"><a href="#about" (click)="page = pages.about">About Us</a></li>
+                <li [ngClass]="{'active-item': page == pages.products}"><a href="#products" (click)="page = pages.products">Services</a></li>
+                <li [ngClass]="{'active-item': page == pages.gallery}"><a href="#gallery" (click)="page = pages.gallery">Gallery</a></li>
+                <li><a onclick="openContactform()">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
 
-  <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Models" aria-label="Example icon-button with a menu">
-    <mat-icon>filter_vintage</mat-icon>
-  </button>
-  <mat-menu #menu="matMenu">
-    <button *ngFor="let model of models; index as index;" (click)="onclickModel(model)" mat-menu-item>
-      <span>{{index + 1}}</span>
-    </button>
-  </mat-menu>
-
-  <button mat-icon-button [matMenuTriggerFor]="menu2" matTooltip="Animations" aria-label="Example icon-button with a menu">
-    <mat-icon>apps</mat-icon>
-  </button>
-  <mat-menu #menu2="matMenu">
-    <button *ngFor="let animation of selectedModel.animations; index as index;" (click)="onclickAnimation(animation)" mat-menu-item>
-      <span>{{index + 1}}</span>
-    </button>
-  </mat-menu>
-
-  <button *ngIf="selectedModel.animation != null" (click)="onclickAction()" [matTooltip]="selectedModel.animation.isPaused ? 'Play Animation' : 'Stop Animation'" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-    <mat-icon *ngIf="selectedModel.animation.isPaused">3d_rotation</mat-icon>
-    <mat-icon *ngIf="!selectedModel.animation.isPaused">pause_circle_outline</mat-icon>
-  </button>
-
-  <button (click)="onclickRotation()" [matTooltip]="selectedModel.hasRotation ? 'Play Rotation' : 'Stop Rotation'" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-    <mat-icon *ngIf="selectedModel.hasRotation">3d_rotation</mat-icon>
-    <mat-icon *ngIf="!selectedModel.hasRotation">pause_circle_outline</mat-icon>
-  </button>
-</mat-toolbar>
+<!-- MAIN -->
+<main role="main">
+    <app-home [hidden]="page != 'home'"></app-home>
+    <app-gallery [hidden]="page != 'gallery'"></app-gallery>
+    <app-products [hidden]="page != 'products'"></app-products>
+    <app-about [hidden]="page != 'about'"></app-about>
+    <!-- <router-outlet></router-outlet> -->
+</main>
