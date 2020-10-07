@@ -9,10 +9,20 @@ main {
 
 header {
     top: 0;
+    // background: #002633;
+}
+
+header > nav > .logo {
+    padding: 28px !important;
 }
 
 footer {
     bottom: 0;
+    background: #002633;
+}
+
+footer > div {
+    margin-top: 20px;
 }
 
 main {
@@ -20,7 +30,8 @@ main {
     bottom: 0;
     left: 0;
     right: 0;
-    overflow: auto;
+    overflow-x: auto;
+    // overflow-y: hidden;
     z-index: 998;
 }
 

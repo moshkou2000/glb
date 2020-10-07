@@ -431,15 +431,11 @@ form {
     background-color: rgba(0, 0, 0, 0.3);
     z-index: 9999;
     right: -100%;
-    -webkit-transition: all 0.3s 0.2s;
-    -o-transition: all 0.3s 0.2s;
     transition: all 0.3s 0.2s
 }
 
 .contact-form__overlay.open {
     right: 0;
-    -webkit-transition: all 0.4s;
-    -o-transition: all 0.4s;
     transition: all 0.4s
 }
 
@@ -450,20 +446,16 @@ form {
     top: 0;
     padding: 70px 35px 40px;
     overflow: scroll;
-    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     width: 100%;
     background-color: #fff;
-    -webkit-transition: all 0.4s;
-    -o-transition: all 0.4s;
     transition: all 0.4s;
     right: -100%
 }
 
 .open .contact-form__inner {
     right: 0;
-    -webkit-transition: all 0.5s 0.3s;
-    -o-transition: all 0.5s 0.3s;
+    overflow-x: hidden;
     transition: all 0.5s 0.3s
 }
 

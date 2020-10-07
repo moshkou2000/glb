@@ -20,6 +20,7 @@ import { ProductsModule } from './products/products.module';
 import { AboutModule } from './about/about.module';
 import { GalleryModule } from './gallery/gallery.module';
 import { HomeModule } from './home/home.module';
+import { ContactModule } from './contact/contact.module';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { HomeModule } from './home/home.module';
         ProductsModule,
         AboutModule,
         GalleryModule,
-        HomeModule
+        HomeModule,
+        ContactModule
     ],
     providers: [
         GeneralService

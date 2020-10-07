@@ -12,21 +12,26 @@ const routes: Routes = [
         loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
         data: { showAlert: false, showHeader: false, showFooter: false, showSidebar: false }
     },
-    {
-        path: 'gallery',
-        loadChildren: () => import('./gallery/gallery.module').then(m => m.GalleryModule),
-        data: { showAlert: false, showHeader: false, showFooter: false, showSidebar: false }
-    },
-    {
-        path: 'products',
-        loadChildren: () => import('./products/products.module').then(m => m.ProductsModule),
-        data: { showAlert: false, showHeader: false, showFooter: false, showSidebar: false }
-    },
-    {
-        path: 'about',
-        loadChildren: () => import('./about/about.module').then(m => m.AboutModule),
-        data: { showAlert: false, showHeader: false, showFooter: false, showSidebar: false }
-    },
+    // {
+    //     path: 'gallery',
+    //     loadChildren: () => import('./gallery/gallery.module').then(m => m.GalleryModule),
+    //     data: { showAlert: false, showHeader: false, showFooter: false, showSidebar: false }
+    // },
+    // {
+    //     path: 'products',
+    //     loadChildren: () => import('./products/products.module').then(m => m.ProductsModule),
+    //     data: { showAlert: false, showHeader: false, showFooter: false, showSidebar: false }
+    // },
+    // {
+    //     path: 'about',
+    //     loadChildren: () => import('./about/about.module').then(m => m.AboutModule),
+    //     data: { showAlert: false, showHeader: false, showFooter: false, showSidebar: false }
+    // },
+    // {
+    //     path: 'contact',
+    //     loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule),
+    //     data: { showAlert: false, showHeader: false, showFooter: false, showSidebar: false }
+    // },
     {
         path: 'error',
         loadChildren: () => import('./error/error.module').then(m => m.ErrorModule),

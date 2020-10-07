@@ -39,15 +39,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   routerEventsSubscription: Subscription;
 
 
-  constructor(private router: Router) { }
-
-  ngOnInit() {
+  constructor(private router: Router) { 
     this.routerEventsSubscription = this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         // TODO: on navigation end
       }
     });
+  }
 
+  ngOnInit() {
     this.init();
   }
 

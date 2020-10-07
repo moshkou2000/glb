@@ -1,7 +1,7 @@
 <!-- HEADER -->
 <header class="grid">
     <nav class="s-12 grid background-none background-primary-hightlight">
-        <a href="index.html" class="m-12 l-3 padding-2x logo">
+        <a href="index.html" class="m-12 l-3 logo">
             <img src="assets/images/logo.svg">
         </a>
         <div class="top-nav s-12 l-9">
@@ -10,7 +10,8 @@
                 <li [ngClass]="{'active-item': page == pages.about}"><a href="#about" (click)="page = pages.about">About Us</a></li>
                 <li [ngClass]="{'active-item': page == pages.products}"><a href="#products" (click)="page = pages.products">Services</a></li>
                 <li [ngClass]="{'active-item': page == pages.gallery}"><a href="#gallery" (click)="page = pages.gallery">Gallery</a></li>
-                <li><a onclick="openContactform()">Contact</a></li>
+                <li [ngClass]="{'active-item': page == pages.contact}"><a href="#contact" (click)="page = pages.contact">Contact</a></li>
+                <!-- <li><a onclick="openContactform()">Contact</a></li> -->
             </ul>
         </div>
     </nav>
@@ -22,5 +23,6 @@
     <app-gallery [hidden]="page != 'gallery'"></app-gallery>
     <app-products [hidden]="page != 'products'"></app-products>
     <app-about [hidden]="page != 'about'"></app-about>
+    <app-contact [hidden]="page != 'contact'"></app-contact>
     <!-- <router-outlet></router-outlet> -->
 </main>
