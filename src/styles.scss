@@ -7,6 +7,11 @@ main {
     z-index: 999;
 }
 
+header,
+footer {
+    right: 44px;
+}
+
 header {
     top: 0;
     // background: #002633;
@@ -14,9 +19,11 @@ header {
 
 header > nav > .logo {
     padding: 28px !important;
+    margin-left: 44px;
 }
 
 footer {
+    z-index:9;
     bottom: 0;
     background: #002633;
 }
