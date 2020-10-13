@@ -269,10 +269,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     // load the first model. Each model is loaded asynchronously,
     // so don't make any assumption about which one will finish loading first
 
-    loader.load( '/assets/files/models/compressor_rear_frame.glb', gltf => onLoad(gltf), onProgress, onError );
-    loader.load( '/assets/files/models/turbine_mid_frame.glb', gltf => onLoad(gltf), onProgress, onError );
-    loader.load( '/assets/files/models/turbine_rear_frame.glb', gltf => onLoad(gltf), onProgress, onError );
-    loader.load( '/assets/files/models/power_turbine.glb', gltf => onLoad(gltf), onProgress, onError );
+    // loader.load( '/assets/files/models/compressor_rear_frame.glb', gltf => onLoad(gltf), onProgress, onError );
+    // loader.load( '/assets/files/models/turbine_mid_frame.glb', gltf => onLoad(gltf), onProgress, onError );
+    // loader.load( '/assets/files/models/turbine_rear_frame.glb', gltf => onLoad(gltf), onProgress, onError );
+    // loader.load( '/assets/files/models/power_turbine.glb', gltf => onLoad(gltf), onProgress, onError );
+
     // loader.load( '/assets/files/models/engine.glb', gltf => onLoad(gltf), onProgress, onError );
     // loader.load( '/assets/files/turbine__turbofan_engine/scene.gltf', gltf => onLoad(gltf), onProgress, onError );
   }

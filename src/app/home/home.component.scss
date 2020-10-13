@@ -1,0 +1,42 @@
+div.fan {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+
+    img {
+        width: 36%;
+        display: inline;
+        margin: 24%;
+        
+
+        // display:inline-block;
+        -webkit-animation:
+        PreRotate 1800ms ease-out 0ms 1,
+        Rotate 3500ms linear 3850ms infinite;
+        animation:
+        PreRotate 3800ms ease-out 0ms 1,
+        Rotate 3500ms linear 3850ms infinite;
+    }
+}
+
+
+@-webkit-keyframes Rotate {
+    from {-webkit-transform:rotate(0deg);}
+    to {-webkit-transform:rotate(360deg);}
+  }
+  @-webkit-keyframes PreRotate {
+    from {-webkit-transform:rotate(0deg);}
+    to {-webkit-transform:rotate(-360deg);}
+  }
+  
+  @keyframes Rotate {
+    from {-webkit-transform:rotate(0deg);}
+    to {-webkit-transform:rotate(360deg);}
+  }
+  @keyframes PreRotate {
+    from {-webkit-transform:rotate(0deg);}
+    to {-webkit-transform:rotate(-360deg);}
+  }
