@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>material/icn-plastic</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="material/icn-plastic">
+            <g id="Group-11" transform="translate(4.000000, 0.000000)" stroke-linecap="round" stroke="#fff" stroke-width="0.8" stroke-linejoin="round">
+                <g id="Page-1" transform="translate(0.000000, 0.500000)">
+                    <path d="M6.5325,13.3576 L0.3995,13.3576 L0.3995,5.1226 C0.3995,3.8596 1.4235,2.8366 2.6845,2.8366 L4.2475,2.8366 C5.5105,2.8366 6.5325,3.8596 6.5325,5.1226 L6.5325,13.3576 Z" id="Stroke-1"></path>
+                    <polyline id="Stroke-3" points="2.1507 2.8371 2.1507 0.4001 4.7827 0.4001 4.7827 2.8371"></polyline>
+                    <path d="M0.3997,5.9831 L6.5327,5.9831" id="Stroke-5"></path>
+                    <path d="M0.3997,10.4201 L6.5327,10.4201" id="Stroke-7"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

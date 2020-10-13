@@ -3,22 +3,22 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
 import { fromEvent, Subscription, Observable } from 'rxjs';
 
-import { ShowModel } from './models/show.model';
-import { ScreenModel } from './models/screen.model';
-
 import { GeneralService } from './services/general/general.service';
 
-import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import GLTFLoader from 'three-gltf-loader';
+// import { ShowModel } from './models/show.model';
+// import { ScreenModel } from './models/screen.model';
 
-import { Vector } from 'three';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { GLBModel, AnimationModel } from './models/GLB.model';
+// import * as THREE from 'three';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import GLTFLoader from 'three-gltf-loader';
 
-const MIXERS = [];
-const CLOCK = new THREE.Clock();
-const TIME_OPTIONS: any = { hour: "2-digit", minute: "2-digit", second: "2-digit", milisecond: "2-digit", hour12: false };
+// import { Vector } from 'three';
+// import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+// import { GLBModel, AnimationModel } from './models/GLB.model';
+
+// const MIXERS = [];
+// const CLOCK = new THREE.Clock();
+// const TIME_OPTIONS: any = { hour: "2-digit", minute: "2-digit", second: "2-digit", milisecond: "2-digit", hour12: false };
 
 enum PAGES {
   home = "home",
@@ -36,14 +36,14 @@ enum PAGES {
 })
 export class AppComponent implements OnInit, OnDestroy {
   // these need to be accessed inside more than one so we'll declare them first
-  container: any;
-  camera: any;
-  controls: any;
-  renderer: any;
-  scene: any;
-  models: GLBModel[] = [];
-  selectedModel: GLBModel = new GLBModel();
-  rendererCounter: number = 0;
+  // container: any;
+  // camera: any;
+  // controls: any;
+  // renderer: any;
+  // scene: any;
+  // models: GLBModel[] = [];
+  // selectedModel: GLBModel = new GLBModel();
+  // rendererCounter: number = 0;
   // duration: number = 5000; // ms
   // currentTime: any = Date.now();
 
@@ -60,29 +60,30 @@ export class AppComponent implements OnInit, OnDestroy {
   routerEventsSubscription: Subscription;
   // layoutSubscription: Subscription;
 
-  // screenSizeSubscription: Subscription;
-  // screenSizeObservable: Observable<Event>;
+  screenSizeSubscription: Subscription;
+  screenSizeObservable: Observable<Event>;
 
 
 
-  constructor(private router: Router, 
+  constructor(private generalService: GeneralService,
+    private router: Router, 
     private activatedRoute: ActivatedRoute, 
-    private generalService: GeneralService,
     private changeDetectorRef: ChangeDetectorRef) {
     
     }
 
   ngOnInit() {
-    // this.screenSizeObservable = fromEvent(window, 'resize');
+    this.screenSizeObservable = fromEvent(window, 'resize');
 
     // this.screenSizeSubscription = this.generalService.getScreenSize().subscribe(size => {
     //   this.onWindowResize();
     // });
 
-    // this.screenSizeSubscription = this.screenSizeObservable.pipe(debounceTime(500)).subscribe(evt => {
-    //   this.generalService.setScreenSize(this.setMediaSize());
-    //   this.generalService.toggleLeftSidenav(!this.isTablet, this.isTablet);
-    // });
+    this.screenSizeSubscription = this.screenSizeObservable.pipe(debounceTime(500)).subscribe(evt => {
+      this.generalService.setScreenSize(null);
+      // this.generalService.setScreenSize(this.setMediaSize());
+      // this.generalService.toggleLeftSidenav(!this.isTablet, this.isTablet);
+    });
 
     // this.routerEventsSubscription = this.router.events.subscribe(event => {
     //   if (event instanceof NavigationEnd) {
@@ -106,10 +107,10 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.routerEventsSubscription) 
       this.routerEventsSubscription.unsubscribe();
+    if (this.screenSizeSubscription) 
+      this.screenSizeSubscription.unsubscribe();
     // if (this.layoutSubscription) 
     //   this.layoutSubscription.unsubscribe();
-    // if (this.screenSizeSubscription) 
-    //   this.screenSizeSubscription.unsubscribe();
   }
 
 

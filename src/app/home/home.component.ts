@@ -1,22 +1,43 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { debounceTime } from 'rxjs/operators';
+import { NavigationEnd, Router } from '@angular/router';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { fromEvent, Subscription, Observable } from 'rxjs';
 
-import { GeneralService } from '../services/general/general.service';
-
-import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import * as THREE from 'three';
+import {
+  Vector,
+  Vector3,
+  sRGBEncoding,
+  LinearEncoding,
+  PMREMGenerator,
+  Scene,
+  Color,
+  Clock,
+  AmbientLight,
+  WebGLRenderer,
+  AnimationMixer,
+  UnsignedByteType,
+  PerspectiveCamera
+} from 'three';
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import GLTFLoader from 'three-gltf-loader';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import { createBackground } from '../../assets/lib/gltf-generator-registry.json';
 
-import { Vector } from 'three';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+declare function createBackground(params: any): any;
+
+import { GeneralService, ENVIRONMENTS } from '../services/general/general.service';
+
 import { GLBModel, AnimationModel } from '../models/GLB.model';
 
 const MIXERS = [];
-const CLOCK = new THREE.Clock();
+const CLOCK = new Clock();
+const DEFAULT_CAMERA = '[default]';
+
+// console log options
 const TIME_OPTIONS: any = { hour: "2-digit", minute: "2-digit", second: "2-digit", milisecond: "2-digit", hour12: false };
 
+const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
 @Component({
   selector: 'app-home',
@@ -29,21 +50,53 @@ export class HomeComponent implements OnInit, OnDestroy {
   camera: any;
   controls: any;
   renderer: any;
-  scene: any;
+  scene: Scene;
+  pmremGenerator: PMREMGenerator;
+  vignette: any;
+
+  state: any = {
+    environment: 'venice-sunset', // 'footprint-court' OR null
+    background: false,
+    playbackSpeed: 1.0,
+    actionStates: {},
+    camera: DEFAULT_CAMERA,
+    wireframe: false,
+    skeleton: false,
+    grid: false,
+
+    // Lights
+    addLights: true,
+    exposure: 1.0,
+    textureEncoding: 'sRGB',
+    ambientIntensity: 0.3,
+    ambientColor: 0xFFFFFF,
+    directIntensity: 0.8 * Math.PI, // TODO(#116)
+    directColor: 0xFFFFFF,
+    bgColor1: '#ffffff',
+    bgColor2: '#353535'
+  };
+
   models: GLBModel[] = [];
   selectedModel: GLBModel = new GLBModel();
   rendererCounter: number = 0;
+
   // duration: number = 5000; // ms
   // currentTime: any = Date.now();
 
   routerEventsSubscription: Subscription;
+  screenSizeSubscription: Subscription;
 
 
-  constructor(private router: Router) { 
+  constructor(private router: Router,
+    private generalService: GeneralService) { 
     this.routerEventsSubscription = this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         // TODO: on navigation end
       }
+    });
+
+    this.screenSizeSubscription = this.generalService.getScreenSize().subscribe(size => {
+      this.onWindowResize();
     });
   }
 
@@ -52,15 +105,18 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.routerEventsSubscription) 
+    if (this.routerEventsSubscription)
       this.routerEventsSubscription.unsubscribe();
+    if (this.screenSizeSubscription)
+      this.screenSizeSubscription.unsubscribe();
   }
 
   init = (): void => {
     this.container = document.querySelector('#scene-container');
+    this.models.forEach((model: any) => this.scene.remove(model));
 
-    this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color(0x002633);
+    this.scene = new Scene();
+    this.scene.background = new Color(0x002633);
 
     this.createCamera();
     this.createControls();
@@ -78,8 +134,19 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   createCamera = (): void => {
-    this.camera = new THREE.PerspectiveCamera(100, this.container.clientWidth / this.container.clientHeight, 1, 1000);
-    this.camera.position.set( -1.5, 1.5, 6.5 );
+    //0.8 * 180 / Math.PI
+    const size = 10;
+    const center = new Vector3(0, 0, 0);
+
+    this.camera = new PerspectiveCamera(60, this.container.clientWidth / this.container.clientHeight, 0.01, 1000);
+    this.camera.near = size / 100;
+    this.camera.far = size * 100;
+    this.camera.updateProjectionMatrix();
+    this.camera.position.copy(center);
+    this.camera.position.x += size / 2.0;
+    this.camera.position.y += size / 5.0;
+    this.camera.position.z += size / 2.0;
+    this.camera.lookAt(center);
   }
 
   createControls = (): void => {
@@ -102,12 +169,60 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   createLights = (): void => {
-		var color = new THREE.Color( 0xffffff );
+		var color = new Color( 0xffffff );
     // const ambientLight = new THREE.HemisphereLight(0xddeeff, 0x0f0e0d, 1);
-    const mainLight = new THREE.DirectionalLight(color);
-    mainLight.position.set( 0, 0, -1 );
-    this.scene.add(mainLight);
+    const ambientLight = new AmbientLight(this.state.ambientColor, this.state.ambientIntensity);
+    // ambientLight.position.set( 0, 0, -1 );
+    this.camera.add(ambientLight);
+
+    // const mainLight = new THREE.DirectionalLight(color);
+    // mainLight.position.set( 0, 0, -1 );
+    // this.scene.add(mainLight);
   }
+
+  updateEnvironment () {
+    this.vignette = createBackground({
+      aspect: this.camera.aspect,
+      grainScale: IS_IOS ? 0 : 0.001, // mattdesl/three-vignette-background#1
+      colors: [this.state.bgColor1, this.state.bgColor2]
+    });
+    this.vignette.name = 'Vignette';
+    this.vignette.renderOrder = -1;
+
+    const environment = ENVIRONMENTS.filter((entry) => entry.name === this.state.environment)[0];
+    this.getCubeMapTexture( environment ).then(( { envMap } ) => {
+      this.scene.add(this.vignette);
+      this.scene.environment = envMap;
+      this.scene.background = this.state.background ? envMap : null;
+    });
+  }
+
+  getCubeMapTexture ( environment ) {
+    const { path } = environment;
+
+    // no envmap
+    if ( ! path ) return Promise.resolve( { envMap: null } );
+    return new Promise( ( resolve, reject ) => {
+      new RGBELoader()
+        .setDataType( UnsignedByteType )
+        .load( path, ( texture ) => {
+          const envMap = this.pmremGenerator.fromEquirectangular( texture ).texture;
+          this.pmremGenerator.dispose();
+          resolve( { envMap } );
+        }, undefined, reject );
+    });
+  }
+
+  // updateTextureEncoding () {
+  //   const encoding = this.state.textureEncoding === 'sRGB'
+  //     ? sRGBEncoding
+  //     : LinearEncoding;
+  //   traverseMaterials(this.content, (material) => {
+  //     if (material.map) material.map.encoding = encoding;
+  //     if (material.emissiveMap) material.emissiveMap.encoding = encoding;
+  //     if (material.map || material.emissiveMap) material.needsUpdate = true;
+  //   });
+  // }
 
   loadModels = (): void => {
     const loader = new GLTFLoader();
@@ -118,12 +233,10 @@ export class HomeComponent implements OnInit, OnDestroy {
       console.log("%c::LOADING " + new Date().toLocaleTimeString("en-us", TIME_OPTIONS), 'color: #00aaff;');
 
       const model = gltf.scene;
-      model.position.copy(position);
-
       const aModel = new GLBModel(model);
 
       if (gltf.animations.length > 0) {
-        const mixer: any = new THREE.AnimationMixer(model);
+        const mixer: any = new AnimationMixer(model);
         MIXERS.push(mixer);
 
         gltf.animations.forEach((animation: any) => {
@@ -131,7 +244,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             if (model) {
               const action = mixer.clipAction(animation);
               aModel.setAnimations(new AnimationModel(action));
-              action.play();
+              action.reset().play();
             }
           }
         });
@@ -166,23 +279,24 @@ export class HomeComponent implements OnInit, OnDestroy {
     // const flamingoPosition = new THREE.Vector3( 0, 0, 0 );
     // loader.load( '/assets/files/compressor_rear_frame.glb', gltf => onLoad( gltf, flamingoPosition ), onProgress, onError );
 
-    const enginePosition = new THREE.Vector3( 0, 0, 0 );
+    const enginePosition = new Vector3( 0, 0, 0 );
     loader.load( '/assets/files/turbine__turbofan_engine/scene.gltf', gltf => onLoad( gltf, enginePosition ), onProgress, onError );
   }
 
   createRenderer = (): void => {
     // create a WebGLRenderer and set its width and height
-    this.renderer = new THREE.WebGLRenderer({
-      antialias: true
-    });
+    this.renderer = new WebGLRenderer({ antialias: true });
     this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.gammaFactor = 2.2;
     this.renderer.gammaOutput = true;
     this.renderer.outputEncoding = true;
     this.renderer.physicallyCorrectLights = true;
-    this.renderer.outputEncoding = THREE.sRGBEncoding;
+    this.renderer.outputEncoding = sRGBEncoding;
     this.renderer.setClearColor( 0xcccccc );
+
+    this.pmremGenerator = new PMREMGenerator( this.renderer );
+    this.pmremGenerator.compileEquirectangularShader();
 
     this.container.appendChild(this.renderer.domElement);
   }
@@ -203,6 +317,15 @@ export class HomeComponent implements OnInit, OnDestroy {
       console.log("%c::RENDERER " + new Date().toLocaleTimeString("en-us", TIME_OPTIONS), 'color: #ecc804;');
     }
   }
+
+  /*
+    Actions
+    onWindowResize: re render
+    onclickRotation
+    onclickAction
+    onclickModel
+    onclickAnimation
+  */
 
   onWindowResize = (): void => {
     if (this.container != null) {
@@ -232,6 +355,5 @@ export class HomeComponent implements OnInit, OnDestroy {
     console.log("::onclickAnimation", animation);
     this.selectedModel.animation = animation;
   }
-
 
 }

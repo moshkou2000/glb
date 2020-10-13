@@ -18,9 +18,31 @@ const BREADCRUMBS: any = [
 
 ];
 
+export const ENVIRONMENTS = [
+    {
+      id: '',
+      name: 'None',
+      path: null,
+      format: '.hdr'
+    },
+    {
+      id: 'venice-sunset',
+      name: 'Venice Sunset',
+      path: 'assets/files/environment/venice_sunset_1k.hdr',
+      format: '.hdr'
+    },
+    {
+      id: 'footprint-court',
+      name: 'Footprint Court (HDR Labs)',
+      path: 'assets/files/environment/footprint_court_2k.hdr',
+      format: '.hdr'
+    }
+  ];
+
 export const distinctArray = (value: any, index: any, self: any) => {
     return self.indexOf(value) === index;
 };
+  
 
 
 
