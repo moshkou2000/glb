@@ -39,6 +39,12 @@ export const ENVIRONMENTS = [
     }
   ];
 
+
+// console log options
+export const TIME_OPTIONS: any = { hour: "2-digit", minute: "2-digit", second: "2-digit", milisecond: "2-digit", hour12: false };
+
+export const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
 export const distinctArray = (value: any, index: any, self: any) => {
     return self.indexOf(value) === index;
 };

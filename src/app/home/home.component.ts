@@ -1,9 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+// import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { fromEvent, Subscription, Observable } from 'rxjs';
 
-// import * as THREE from 'three';
 import {
   Vector,
   Vector3,
@@ -17,16 +16,17 @@ import {
   WebGLRenderer,
   AnimationMixer,
   UnsignedByteType,
-  PerspectiveCamera
+  PerspectiveCamera,
+  DirectionalLight
 } from 'three';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
-import GLTFLoader from 'three-gltf-loader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-// import { createBackground } from '../../assets/lib/gltf-generator-registry.json';
+import GLTFLoader from 'three-gltf-loader';
+import createBackground from 'three-vignette-background';
+//npm install @types/three-vignette-background
 
-declare function createBackground(params: any): any;
 
-import { GeneralService, ENVIRONMENTS } from '../services/general/general.service';
+import { GeneralService, ENVIRONMENTS, TIME_OPTIONS, IS_IOS } from '../services/general/general.service';
 
 import { GLBModel, AnimationModel } from '../models/GLB.model';
 
@@ -34,10 +34,6 @@ const MIXERS = [];
 const CLOCK = new Clock();
 const DEFAULT_CAMERA = '[default]';
 
-// console log options
-const TIME_OPTIONS: any = { hour: "2-digit", minute: "2-digit", second: "2-digit", milisecond: "2-digit", hour12: false };
-
-const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
 @Component({
   selector: 'app-home',
@@ -122,15 +118,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.createControls();
     this.createLights();
     this.loadModels();
+    this.updateEnvironment();
     this.createRenderer();
-
-    this.renderer.setAnimationLoop(() => {
-      this.update();
-      this.render();
-      this.models.forEach((model: GLBModel) => {
-        model.infinitRotation();
-      });
-    });
   }
 
   createCamera = (): void => {
@@ -139,13 +128,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     const center = new Vector3(0, 0, 0);
 
     this.camera = new PerspectiveCamera(60, this.container.clientWidth / this.container.clientHeight, 0.01, 1000);
-    this.camera.near = size / 100;
-    this.camera.far = size * 100;
+    // this.camera.near = size / 100;
+    // this.camera.far = size * 100;
     this.camera.updateProjectionMatrix();
     this.camera.position.copy(center);
-    this.camera.position.x += size / 2.0;
-    this.camera.position.y += size / 5.0;
-    this.camera.position.z += size / 2.0;
+    // this.camera.position.x += size / 2.0;
+    // this.camera.position.y += size / 5.0;
+    // this.camera.position.z += size / 2.0;
     this.camera.lookAt(center);
   }
 
@@ -170,17 +159,26 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   createLights = (): void => {
 		var color = new Color( 0xffffff );
-    // const ambientLight = new THREE.HemisphereLight(0xddeeff, 0x0f0e0d, 1);
-    const ambientLight = new AmbientLight(this.state.ambientColor, this.state.ambientIntensity);
-    // ambientLight.position.set( 0, 0, -1 );
-    this.camera.add(ambientLight);
+    // // const ambientLight = new THREE.HemisphereLight(0xddeeff, 0x0f0e0d, 1);
+    // const ambientLight = new AmbientLight(this.state.ambientColor, this.state.ambientIntensity);
+    // // ambientLight.position.set( 0, 0, -1 );
+    // this.camera.add(ambientLight);
 
-    // const mainLight = new THREE.DirectionalLight(color);
+    const mainLight = new DirectionalLight(color);
     // mainLight.position.set( 0, 0, -1 );
-    // this.scene.add(mainLight);
+    this.scene.add(mainLight);
+
+    const light1 = new AmbientLight(this.state.ambientColor, this.state.ambientIntensity);
+    light1.name = 'ambient_light';
+    this.camera.add(light1);
+
+    const light2 = new DirectionalLight(this.state.directColor, this.state.directIntensity);
+    light2.position.set(0.5, 0, 0.866); // ~60º
+    light2.name = 'main_light';
+    this.camera.add(light2);
   }
 
-  updateEnvironment () {
+  updateEnvironment = (): void => {
     this.vignette = createBackground({
       aspect: this.camera.aspect,
       grainScale: IS_IOS ? 0 : 0.001, // mattdesl/three-vignette-background#1
@@ -189,7 +187,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.vignette.name = 'Vignette';
     this.vignette.renderOrder = -1;
 
-    const environment = ENVIRONMENTS.filter((entry) => entry.name === this.state.environment)[0];
+    const environment = ENVIRONMENTS.filter((entry) => entry.id === this.state.environment)[0];
+    
     this.getCubeMapTexture( environment ).then(( { envMap } ) => {
       this.scene.add(this.vignette);
       this.scene.environment = envMap;
@@ -197,7 +196,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  getCubeMapTexture ( environment ) {
+  getCubeMapTexture = (environment: any): Promise<any> => {
     const { path } = environment;
 
     // no envmap
@@ -229,7 +228,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     // A reusable to set up the models. We're passing in a position parameter
     // so that they can be individually placed around the scene
-    const onLoad = (gltf: any, position: Vector) => {
+    const onLoad = (gltf: any) => {
       console.log("%c::LOADING " + new Date().toLocaleTimeString("en-us", TIME_OPTIONS), 'color: #00aaff;');
 
       const model = gltf.scene;
@@ -270,17 +269,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     // load the first model. Each model is loaded asynchronously,
     // so don't make any assumption about which one will finish loading first
 
-    // const parrotPosition = new THREE.Vector3(10, 110, 110);
-    // loader.load('/assets/files/power_turbine.glb', gltf => onLoad(gltf, parrotPosition), onProgress, onError);
-    
-    // const parrotMultiplePosition = new THREE.Vector3(90, -90, 0);
-    // loader.load('/assets/files/turbine_mid_frame.glb', gltf => onLoad(gltf, parrotMultiplePosition), onProgress, onError);
-
-    // const flamingoPosition = new THREE.Vector3( 0, 0, 0 );
-    // loader.load( '/assets/files/compressor_rear_frame.glb', gltf => onLoad( gltf, flamingoPosition ), onProgress, onError );
-
-    const enginePosition = new Vector3( 0, 0, 0 );
-    loader.load( '/assets/files/turbine__turbofan_engine/scene.gltf', gltf => onLoad( gltf, enginePosition ), onProgress, onError );
+    loader.load( '/assets/files/models/compressor_rear_frame.glb', gltf => onLoad(gltf), onProgress, onError );
+    loader.load( '/assets/files/models/turbine_mid_frame.glb', gltf => onLoad(gltf), onProgress, onError );
+    loader.load( '/assets/files/models/turbine_rear_frame.glb', gltf => onLoad(gltf), onProgress, onError );
+    loader.load( '/assets/files/models/power_turbine.glb', gltf => onLoad(gltf), onProgress, onError );
+    // loader.load( '/assets/files/models/engine.glb', gltf => onLoad(gltf), onProgress, onError );
+    // loader.load( '/assets/files/turbine__turbofan_engine/scene.gltf', gltf => onLoad(gltf), onProgress, onError );
   }
 
   createRenderer = (): void => {
@@ -293,12 +287,20 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.renderer.outputEncoding = true;
     this.renderer.physicallyCorrectLights = true;
     this.renderer.outputEncoding = sRGBEncoding;
-    this.renderer.setClearColor( 0xcccccc );
+    this.renderer.setClearColor(0xcccccc);
 
-    this.pmremGenerator = new PMREMGenerator( this.renderer );
+    this.pmremGenerator = new PMREMGenerator(this.renderer);
     this.pmremGenerator.compileEquirectangularShader();
 
     this.container.appendChild(this.renderer.domElement);
+
+    this.renderer.setAnimationLoop(() => {
+      this.update();
+      this.render();
+      this.models.forEach((model: GLBModel) => {
+        model.infinitRotation();
+      });
+    });
   }
 
   update = (): void => {
